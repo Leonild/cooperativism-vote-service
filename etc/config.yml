@@ -1,0 +1,14 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 8080
+  adminConnectors:
+    - type: http
+      port: 8081
+target: https://https://user-info.herokuapp.com/users/
+httpClient:
+  timeout: 3s
+  connectionTimeout: 10s
+logging:
+  loggers:
+    "com.leonildo.cooperativism-vote-service": DEBUG
