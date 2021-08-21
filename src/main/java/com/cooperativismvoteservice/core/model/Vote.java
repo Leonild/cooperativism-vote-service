@@ -20,10 +20,16 @@ public class Vote {
     @JoinColumn(name = "voting_agenda_id")
     private VotingAgenda votingAgenda;
 
+    private String cpf;
+
+    private String choice;
+
     private Boolean vote;
 
-    public Vote(VotingAgenda votingAgenda, Boolean vote) {
+    public Vote(VotingAgenda votingAgenda, String cpf, String choice, Boolean vote) {
         this.votingAgenda = votingAgenda;
+        this.cpf = cpf;
+        this.choice = choice;
         this.vote = vote;
     }
 
@@ -51,4 +57,19 @@ public class Vote {
         this.vote = vote;
     }
 
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getChoice() {
+        return choice;
+    }
+
+    public void setChoice(String choice) {
+        this.choice = choice;
+    }
 }
