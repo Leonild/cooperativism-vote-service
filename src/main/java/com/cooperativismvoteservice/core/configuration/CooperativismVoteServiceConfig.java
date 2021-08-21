@@ -3,9 +3,9 @@ package com.cooperativismvoteservice.core.configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import io.dropwizard.client.JerseyClientConfiguration;
-import org.hibernate.validator.constraints.NotBlank;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
  */
 public class CooperativismVoteServiceConfig extends Configuration {
 
-    @NotBlank
+    @NotEmpty
     private String target;
 
     @Valid

@@ -3,6 +3,7 @@ package com.cooperativismvoteservice.core;
 import com.cooperativismvoteservice.core.configuration.CooperativismVoteServiceConfig;
 import io.dropwizard.Application;
 import io.dropwizard.client.JerseyClientBuilder;
+import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 
 import javax.ws.rs.client.Client;
@@ -20,6 +21,11 @@ public class CooperativismVoteServiceApp extends Application<CooperativismVoteSe
     @Override
     public String getName() {
         return "cooperativism-vote-service";
+    }
+
+    @Override
+    public void initialize(Bootstrap<CooperativismVoteServiceConfig> bootstrap) {
+        // nothing to do yet
     }
 
     @Override
