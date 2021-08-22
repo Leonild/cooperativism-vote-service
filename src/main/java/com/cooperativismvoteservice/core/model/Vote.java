@@ -1,12 +1,6 @@
 package com.cooperativismvoteservice.core.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "vote")
@@ -14,16 +8,20 @@ public class Vote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "vote_id")
     private Long voteId;
 
     @OneToOne()
     @JoinColumn(name = "voting_agenda_id")
     private VotingAgenda votingAgenda;
 
+    @Column(name = "cpf")
     private String cpf;
 
+    @Column(name = "choice")
     private String choice;
 
+    @Column(name = "vote")
     private Boolean vote;
 
     public Vote(VotingAgenda votingAgenda, String cpf, String choice, Boolean vote) {
@@ -31,6 +29,9 @@ public class Vote {
         this.cpf = cpf;
         this.choice = choice;
         this.vote = vote;
+    }
+
+    public Vote() {
     }
 
     public Long getVoteId() {
@@ -72,4 +73,17 @@ public class Vote {
     public void setChoice(String choice) {
         this.choice = choice;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vote)) return false;
+
+        Vote that = (Vote) o;
+
+        if (!getVoteId().equals(that.getVoteId())) return false;
+
+        return true;
+    }
+
 }

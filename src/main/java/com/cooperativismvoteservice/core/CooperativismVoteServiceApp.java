@@ -9,8 +9,10 @@ import com.cooperativismvoteservice.core.services.VotingAgendaService;
 import com.cooperativismvoteservice.core.services.VotingSessionService;
 import io.dropwizard.Application;
 import io.dropwizard.client.JerseyClientBuilder;
+import io.dropwizard.jdbi3.JdbiFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import org.jdbi.v3.core.Jdbi;
 
 import javax.ws.rs.client.Client;
 
@@ -36,6 +38,9 @@ public class CooperativismVoteServiceApp extends Application<CooperativismVoteSe
 
     @Override
     public void run(CooperativismVoteServiceConfig cooperativismVoteServiceConfig, Environment environment) {
+        final JdbiFactory factory = new JdbiFactory();
+        final Jdbi jdbi = factory.build(environment, cooperativismVoteServiceConfig.getDataSourceFactory(), "postgresql");
+
         Client client = new JerseyClientBuilder(environment).using(cooperativismVoteServiceConfig.getHttpClient()).build(getName());
 
         VotingSessionService votingSessionService = new VotingSessionService(cooperativismVoteServiceConfig.getTarget(), client, environment.getObjectMapper());

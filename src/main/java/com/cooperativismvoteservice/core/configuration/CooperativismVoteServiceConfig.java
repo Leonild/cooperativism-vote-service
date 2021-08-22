@@ -3,6 +3,7 @@ package com.cooperativismvoteservice.core.configuration;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.dropwizard.Configuration;
 import io.dropwizard.client.JerseyClientConfiguration;
+import io.dropwizard.db.DataSourceFactory;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -20,6 +21,10 @@ public class CooperativismVoteServiceConfig extends Configuration {
     @Valid
     @NotNull
     private JerseyClientConfiguration httpClient = new JerseyClientConfiguration();
+
+    @Valid
+    @NotNull
+    private DataSourceFactory database = new DataSourceFactory();
 
     @JsonProperty
     public String getTarget() {
@@ -39,5 +44,15 @@ public class CooperativismVoteServiceConfig extends Configuration {
     @JsonProperty
     public void setHttpClient(JerseyClientConfiguration httpClient) {
         this.httpClient = httpClient;
+    }
+
+    @JsonProperty("database")
+    public void setDataSourceFactory(DataSourceFactory factory) {
+        this.database = factory;
+    }
+
+    @JsonProperty("database")
+    public DataSourceFactory getDataSourceFactory() {
+        return database;
     }
 }

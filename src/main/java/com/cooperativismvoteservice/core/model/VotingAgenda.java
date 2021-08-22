@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "voting_agenda")
-public class VotingAgenda {
+public class VotingAgenda implements Comparable<VotingAgenda>{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +19,9 @@ public class VotingAgenda {
 
     public VotingAgenda(String description) {
         this.description = description;
+    }
+
+    public VotingAgenda() {
     }
 
     public Long getVotingAgendaId() {
@@ -37,4 +40,8 @@ public class VotingAgenda {
         this.description = description;
     }
 
+    @Override
+    public int compareTo(VotingAgenda o) {
+        return description.compareTo(o.description);
+    }
 }
