@@ -17,7 +17,7 @@ public interface VotingSessionDAO {
     List<VotingSession> getAll();
 
     @SqlQuery("select * from VOTING_SESSION where VOTING_SESSION_ID = :voting_session_id")
-    VotingSession findById(@Bind("voting_agenda_id") int voting_agenda_id);
+    VotingSession findById(@Bind("voting_agenda_id") Long voting_agenda_id);
 
     @SqlUpdate("delete from VOTING_SESSION where VOTING_SESSION_ID = :voting_session_id")
     int deleteById(@Bind("voting_agenda_id") Long voting_session_id);

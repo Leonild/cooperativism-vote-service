@@ -1,11 +1,16 @@
 server:
-  applicationConnectors:
-    - type: http
-      port: 8080
-  adminConnectors:
-    - type: http
-      port: 8081
-target: https://https://user-info.herokuapp.com/users/
+  type: simple
+  applicationContextPath: /
+  connector:
+    type: http
+    port: 9090
+    useServerHeader: true
+    useForwardedHeaders: false
+  gzip:
+    enabled: false
+  requestLog:
+    appenders: []
+target: https://user-info.herokuapp.com/users/
 httpClient:
   timeout: 3s
   connectionTimeout: 10s
@@ -20,7 +25,7 @@ database:
 
   password: pg-password
 
-  url: jdbc:postgresql://db.example.com/db-prod
+  url: jdbc:postgresql://localhost:5432/
 
   properties:
     charSet: UTF-8

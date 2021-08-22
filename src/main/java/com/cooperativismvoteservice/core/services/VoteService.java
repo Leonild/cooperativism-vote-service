@@ -2,6 +2,7 @@ package com.cooperativismvoteservice.core.services;
 
 import com.cooperativismvoteservice.core.model.Vote;
 import com.cooperativismvoteservice.core.model.VotingAgenda;
+import com.cooperativismvoteservice.core.repositoy.VoteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,11 +20,13 @@ public class VoteService {
     private final String target;
     private final Client client;
     private final ObjectMapper objectMapper;
+    private final VoteRepository voteRepository;
 
-    public VoteService(String target, Client client, ObjectMapper objectMapper) {
+    public VoteService(String target, Client client, ObjectMapper objectMapper, VoteRepository voteRepository) {
         this.target = target;
         this.client = client;
         this.objectMapper = objectMapper;
+        this.voteRepository = voteRepository;
     }
 
     public Vote vote(String agendaId, String cpf, String choice) {

@@ -15,7 +15,7 @@ public class VotingAgendaRepository implements VotingAgendaDAO {
     }
 
     @Override
-    public VotingAgenda findById(int id) {
+    public VotingAgenda findById(Long id) {
         return jdbi.withExtension(VotingAgendaDAO.class, dao -> dao.findById(id));
     }
 

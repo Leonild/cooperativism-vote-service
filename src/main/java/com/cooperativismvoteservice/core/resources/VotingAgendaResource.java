@@ -20,11 +20,22 @@ public class VotingAgendaResource {
         this.votingAgendaService = votingAgendaService;
     }
 
-    @GET
+    @GET()
     @Path("/{description}")
     @Timed
-    public Response getVote(@PathParam("description") String description) {
+    public Response createAgenda(@PathParam("description") String description) {
         VotingAgenda votingAgenda = votingAgendaService.createAgenda(description);
+        if (votingAgenda == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(votingAgenda).build();
+    }
+
+    @GET
+    @Path("/get-agenda/{id}")
+    @Timed
+    public Response getAgenda(@PathParam("id") String agendaID) {
+        VotingAgenda votingAgenda = votingAgendaService.getAgenda(agendaID);
         if (votingAgenda == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

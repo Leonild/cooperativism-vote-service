@@ -1,6 +1,9 @@
 package com.cooperativismvoteservice.core;
 
 import com.cooperativismvoteservice.core.configuration.CooperativismVoteServiceConfig;
+import com.cooperativismvoteservice.core.repositoy.VoteRepository;
+import com.cooperativismvoteservice.core.repositoy.VotingAgendaRepository;
+import com.cooperativismvoteservice.core.repositoy.VotingSessionRepository;
 import com.cooperativismvoteservice.core.resources.VoteResource;
 import com.cooperativismvoteservice.core.resources.VotingAgendaResource;
 import com.cooperativismvoteservice.core.resources.VotingSessionResource;
@@ -10,8 +13,10 @@ import com.cooperativismvoteservice.core.services.VotingSessionService;
 import io.dropwizard.Application;
 import io.dropwizard.client.JerseyClientBuilder;
 import io.dropwizard.jdbi3.JdbiFactory;
+import io.dropwizard.jdbi3.bundles.JdbiExceptionsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import io.dropwizard.views.ViewBundle;
 import org.jdbi.v3.core.Jdbi;
 
 import javax.ws.rs.client.Client;
@@ -33,7 +38,8 @@ public class CooperativismVoteServiceApp extends Application<CooperativismVoteSe
 
     @Override
     public void initialize(Bootstrap<CooperativismVoteServiceConfig> bootstrap) {
-        // nothing to do yet
+        bootstrap.addBundle(new ViewBundle<>());
+        bootstrap.addBundle(new JdbiExceptionsBundle());
     }
 
     @Override
@@ -43,15 +49,15 @@ public class CooperativismVoteServiceApp extends Application<CooperativismVoteSe
 
         Client client = new JerseyClientBuilder(environment).using(cooperativismVoteServiceConfig.getHttpClient()).build(getName());
 
-        VotingSessionService votingSessionService = new VotingSessionService(cooperativismVoteServiceConfig.getTarget(), client, environment.getObjectMapper());
+        VotingSessionService votingSessionService = new VotingSessionService(cooperativismVoteServiceConfig.getTarget(), client, environment.getObjectMapper(), new VotingSessionRepository(jdbi));
         VotingSessionResource votingSessionResource = new VotingSessionResource(votingSessionService);
         environment.jersey().register(votingSessionResource);
 
-        VoteService voteService = new VoteService(cooperativismVoteServiceConfig.getTarget(), client, environment.getObjectMapper());
+        VoteService voteService = new VoteService(cooperativismVoteServiceConfig.getTarget(), client, environment.getObjectMapper(), new VoteRepository(jdbi));
         VoteResource voteResource = new VoteResource(voteService);
         environment.jersey().register(voteResource);
 
-        VotingAgendaService votingAgendaService = new VotingAgendaService(cooperativismVoteServiceConfig.getTarget(), client, environment.getObjectMapper());
+        VotingAgendaService votingAgendaService = new VotingAgendaService(cooperativismVoteServiceConfig.getTarget(), client, environment.getObjectMapper(), new VotingAgendaRepository(jdbi));
         VotingAgendaResource votingAgenda = new VotingAgendaResource(votingAgendaService);
         environment.jersey().register(votingAgenda);
 

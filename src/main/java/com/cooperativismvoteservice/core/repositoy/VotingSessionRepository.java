@@ -14,7 +14,7 @@ public class VotingSessionRepository implements VotingSessionDAO {
     }
 
     @Override
-    public VotingSession findById(int id) {
+    public VotingSession findById(Long id) {
         return jdbi.withExtension(VotingSessionDAO.class, dao -> dao.findById(id));
     }
 
