@@ -24,7 +24,7 @@ public class VotingSessionResource {
     @GET
     @Path("/{agendaId}")
     @Timed
-    public Response getVotingSession(@Length(min = 1, max = 19, message = "Identificador de sessão inválido")
+    public Response createVotingSession(@Length(min = 1, max = 19, message = "Identificador de sessão inválido")
                                  @PathParam("agendaId") String agendaId) {
         VotingSession votingSession = votingSessionService.createVotingSession(agendaId);
         if (votingSession == null) {

@@ -18,12 +18,12 @@ public class VotingSessionRepository implements VotingSessionDAO {
     }
 
     @Override
-    public VotingSession findById(Long id) {
-        return jdbi.withExtension(VotingSessionDAO.class, dao -> dao.findById(id));
+    public VotingSession findById(Long voting_session_id) {
+        return jdbi.withExtension(VotingSessionDAO.class, dao -> dao.findById(voting_session_id));
     }
 
     @Override
-    public Long deleteById(Long voting_agenda_id) {
+    public Long deleteById(Long voting_session_id) {
         return 0L;
     }
 
@@ -31,7 +31,6 @@ public class VotingSessionRepository implements VotingSessionDAO {
     public Long insert(VotingSession votingSession) {
         return jdbi.withExtension(VotingSessionDAO.class, dao -> dao.insert(votingSession));
     }
-
 
     @Override
     public List<VotingSession> getAll() {

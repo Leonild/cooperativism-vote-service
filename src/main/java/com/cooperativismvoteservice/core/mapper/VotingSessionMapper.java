@@ -10,8 +10,7 @@ import java.sql.SQLException;
 public class VotingSessionMapper implements RowMapper<VotingSession> {
     @Override
     public VotingSession map(ResultSet rs, StatementContext ctx) throws SQLException {
-        VotingSession votingSession = new VotingSession();
-        votingSession.setVotingAgendaID(rs.getLong("voting_agenda_id"));
+        VotingSession votingSession = new VotingSession(rs.getLong("voting_agenda_id"));
         votingSession.setVotingSessionId(rs.getLong("voting_session_id"));;
         return votingSession;
     }

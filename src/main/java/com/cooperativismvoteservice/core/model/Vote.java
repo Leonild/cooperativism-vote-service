@@ -12,8 +12,8 @@ public class Vote {
     private Long voteId;
 
     @OneToOne()
-    @JoinColumn(name = "voting_agenda_id")
-    private VotingAgenda votingAgenda;
+    @JoinColumn(name = "voting_session_id")
+    private Long votingSession;
 
     @Column(name = "cpf")
     private String cpf;
@@ -24,8 +24,8 @@ public class Vote {
     @Column(name = "vote")
     private Boolean vote;
 
-    public Vote(VotingAgenda votingAgenda, String cpf, String choice, Boolean vote) {
-        this.votingAgenda = votingAgenda;
+    public Vote(Long votingSession, String cpf, String choice, Boolean vote) {
+        this.votingSession = votingSession;
         this.cpf = cpf;
         this.choice = choice;
         this.vote = vote;
@@ -42,12 +42,12 @@ public class Vote {
         this.voteId = voteId;
     }
 
-    public VotingAgenda getVotingAgenda() {
-        return votingAgenda;
+    public Long getVotingSession() {
+        return votingSession;
     }
 
-    public void setVotingAgenda(VotingAgenda votingAgenda) {
-        this.votingAgenda = votingAgenda;
+    public void setVotingSession(Long votingSession) {
+        this.votingSession = votingSession;
     }
 
     public Boolean getVote() {

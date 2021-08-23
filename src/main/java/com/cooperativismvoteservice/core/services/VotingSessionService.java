@@ -35,9 +35,8 @@ public class VotingSessionService {
                 new VotingAgendaRepository(votingSessionRepository.getJdbi()));
         VotingAgenda votingAgenda = agendaService.getAgenda(agendaId);
         if(votingAgenda==null) return null;
-        VotingSession votingSession = new VotingSession();
-        votingSession.setVotingAgendaID(votingAgenda.getVotingAgendaId());
-        logger.debug("AGENDA ID: " + votingAgenda.getVotingAgendaId());
+        VotingSession votingSession = new VotingSession(votingAgenda.getVotingAgendaId());
+        logger.info("AGENDA ID: " + votingAgenda.getVotingAgendaId());
         Long sessionID = votingSessionRepository.insert(votingSession);
         votingSession.setVotingSessionId(sessionID);
         return votingSession;

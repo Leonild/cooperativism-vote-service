@@ -1,18 +1,29 @@
 package com.cooperativismvoteservice.core.model;
 
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "voting_session")
 public class VotingSession implements Comparable<VotingSession>{
 
     @Id
+    @JsonProperty
     @Column(name = "voting_session_id")
     private Long votingSessionId;
 
-    @JoinColumn(name = "voting_agenda_id")
+    @JsonProperty
+    @Column(name = "voting_agenda_id")
     private Long votingAgendaID;
+
+    public VotingSession(Long votingAgendaID) {
+        this.votingAgendaID = votingAgendaID;
+    }
 
     public VotingSession() {
     }

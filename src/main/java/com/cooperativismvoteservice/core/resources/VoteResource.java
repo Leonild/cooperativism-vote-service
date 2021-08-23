@@ -21,12 +21,12 @@ public class VoteResource {
     }
 
     @GET
-    @Path("/{agendaId}/{cpf}/{choice}")
+    @Path("/{sessionId}/{cpf}/{choice}")
     @Timed
-    public Response getVote(@PathParam("agendaId") String agendaId,
+    public Response getVote(@PathParam("sessionId") String sessionId,
                             @PathParam("cpf") String cpf,
                             @PathParam("choice") String choice) {
-        Vote vote = voteService.vote(agendaId, cpf, choice);
+        Vote vote = voteService.vote(sessionId, cpf, choice);
         if (vote == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

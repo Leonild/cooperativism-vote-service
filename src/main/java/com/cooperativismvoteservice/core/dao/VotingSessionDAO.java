@@ -18,15 +18,13 @@ public interface VotingSessionDAO {
     List<VotingSession> getAll();
 
     @SqlQuery("select * from VOTING_SESSION where VOTING_SESSION_ID = :voting_session_id")
-    VotingSession findById(@Bind("voting_agenda_id") Long voting_agenda_id);
+    VotingSession findById(@Bind("voting_session_id") Long voting_session_id);
 
     @SqlUpdate("delete from VOTING_SESSION where VOTING_SESSION_ID = :voting_session_id")
-    Long deleteById(@Bind("voting_agenda_id") Long voting_session_id);
+    Long deleteById(@Bind("voting_session_id") Long voting_session_id);
 
-//    @SqlUpdate("update VOTING_AGENDA set DESCRIPTION = :description where VOTING_SESSION_ID = :voting_session_id")
-//    int update(@BindBean VotingAgenda votingAgenda);
-
-    @SqlUpdate("insert into VOTING_SESSION (VOTING_AGENDA_ID) values (:voting_agenda_id)")
+    @SqlUpdate("insert into VOTING_SESSION (VOTING_AGENDA_ID) values (:votingAgendaID)")
     @GetGeneratedKeys
     Long insert(@BindBean VotingSession votingSession);
+
 }
