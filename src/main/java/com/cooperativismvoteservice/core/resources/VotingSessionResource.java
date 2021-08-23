@@ -22,13 +22,13 @@ public class VotingSessionResource {
     }
 
     @GET
-    @Path("/{sessionId}")
+    @Path("/{agendaId}")
     @Timed
     public Response getVotingSession(@Length(min = 1, max = 19, message = "Identificador de sessão inválido")
-                                 @PathParam("sessionId") String sessionId) {
-        VotingSession votingSession = votingSessionService.getVotingSession(sessionId);
+                                 @PathParam("agendaId") String agendaId) {
+        VotingSession votingSession = votingSessionService.createVotingSession(agendaId);
         if (votingSession == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+            return Response.status(Response.Status.BAD_REQUEST).build();
         }
         return Response.ok(votingSession).build();
     }

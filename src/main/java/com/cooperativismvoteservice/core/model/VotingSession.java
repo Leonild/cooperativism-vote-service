@@ -8,13 +8,11 @@ import javax.persistence.*;
 public class VotingSession implements Comparable<VotingSession>{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "voting_session_id")
     private Long votingSessionId;
 
-    @OneToOne()
     @JoinColumn(name = "voting_agenda_id")
-    private VotingAgenda votingAgenda;
+    private Long votingAgendaID;
 
     public VotingSession() {
     }
@@ -27,17 +25,17 @@ public class VotingSession implements Comparable<VotingSession>{
         this.votingSessionId = votingSessionId;
     }
 
-    public VotingAgenda getVotingAgenda() {
-        return votingAgenda;
+    public Long getVotingAgendaID() {
+        return votingAgendaID;
     }
 
-    public void setVotingAgenda(VotingAgenda votingAgenda) {
-        this.votingAgenda = votingAgenda;
+    public void setVotingAgendaID(Long votingAgendaID) {
+        this.votingAgendaID = votingAgendaID;
     }
 
     @Override
     public int compareTo(VotingSession o) {
-        return votingAgenda.compareTo(o.votingAgenda);
+        return votingAgendaID.compareTo(o.votingAgendaID);
     }
 
 }

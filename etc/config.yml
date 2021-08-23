@@ -21,11 +21,11 @@ logging:
 database:
   driverClass: org.postgresql.Driver
 
-  user: pg-user
+  user: postgres
 
-  password: pg-password
+  password: postgres
 
-  url: jdbc:postgresql://localhost:5432/
+  url: jdbc:postgresql://localhost:5432/postgres
 
   properties:
     charSet: UTF-8

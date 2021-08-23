@@ -7,7 +7,6 @@ import javax.persistence.*;
 public class VotingAgenda implements Comparable<VotingAgenda>{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "voting_agenda_id")
     private Long votingAgendaId;
 

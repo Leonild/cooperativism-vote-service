@@ -2,6 +2,7 @@ package com.cooperativismvoteservice.core.services;
 
 import com.cooperativismvoteservice.core.model.VotingAgenda;
 import com.cooperativismvoteservice.core.model.VotingSession;
+import com.cooperativismvoteservice.core.repositoy.VotingAgendaRepository;
 import com.cooperativismvoteservice.core.repositoy.VotingSessionRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
@@ -29,10 +30,16 @@ public class VotingSessionService {
         this.votingSessionRepository = votingSessionRepository;
     }
 
-    public VotingSession getVotingSession(String sessionId) {
+    public VotingSession createVotingSession(String agendaId) {
+        VotingAgendaService agendaService = new VotingAgendaService(target, client, objectMapper,
+                new VotingAgendaRepository(votingSessionRepository.getJdbi()));
+        VotingAgenda votingAgenda = agendaService.getAgenda(agendaId);
+        if(votingAgenda==null) return null;
         VotingSession votingSession = new VotingSession();
-        votingSession.setVotingSessionId(Long.valueOf(sessionId));
-        votingSession.setVotingAgenda(new VotingAgenda("Agenda de teste!"));
+        votingSession.setVotingAgendaID(votingAgenda.getVotingAgendaId());
+        logger.debug("AGENDA ID: " + votingAgenda.getVotingAgendaId());
+        Long sessionID = votingSessionRepository.insert(votingSession);
+        votingSession.setVotingSessionId(sessionID);
         return votingSession;
     }
 }

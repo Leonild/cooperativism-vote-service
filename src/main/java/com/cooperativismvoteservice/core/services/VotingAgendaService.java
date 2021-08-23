@@ -30,8 +30,9 @@ public class VotingAgendaService {
 
     public VotingAgenda createAgenda(String description){
         VotingAgenda votingAgenda = new VotingAgenda(description);
-        int result = votingAgendaRepository.insert(votingAgenda);
-        logger.debug("Insertion result was: " + result);
+        Long votinAgendaID = votingAgendaRepository.insert(votingAgenda);
+        votingAgenda.setVotingAgendaId(votinAgendaID);
+        logger.debug("Insertion ID was: " + votinAgendaID);
         return votingAgenda;
     }
 

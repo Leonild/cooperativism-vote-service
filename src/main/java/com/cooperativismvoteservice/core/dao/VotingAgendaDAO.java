@@ -5,6 +5,7 @@ import com.cooperativismvoteservice.core.model.VotingAgenda;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
+import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
@@ -20,11 +21,12 @@ public interface VotingAgendaDAO {
     VotingAgenda findById(@Bind("voting_agenda_id") Long voting_agenda_id);
 
     @SqlUpdate("delete from VOTING_AGENDA where VOTING_AGENDA_ID = :voting_agenda_id")
-    int deleteById(@Bind("voting_agenda_id") Long voting_agenda_id);
+    Long deleteById(@Bind("voting_agenda_id") Long voting_agenda_id);
 
 //    @SqlUpdate("update VOTING_AGENDA set DESCRIPTION = :description where VOTING_AGENDA_ID = :voting_agenda_id")
 //    int update(@BindBean VotingAgenda votingAgenda);
 
-    @SqlUpdate("insert into VOTING_AGENDA (VOTING_AGENDA_ID, DESCRIPTION) values (:voting_agenda_id, :description)")
-    int insert(@BindBean VotingAgenda votingAgenda);
+    @SqlUpdate("insert into VOTING_AGENDA (DESCRIPTION) values (:description)")
+    @GetGeneratedKeys
+    Long insert(@BindBean VotingAgenda votingAgenda);
 }
