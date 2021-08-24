@@ -1,6 +1,6 @@
 package com.cooperativismvoteservice.core.services;
 
-import com.cooperativismvoteservice.core.model.VotingAgenda;
+import com.cooperativismvoteservice.model.VotingAgenda;
 import com.cooperativismvoteservice.core.repositoy.VotingAgendaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;

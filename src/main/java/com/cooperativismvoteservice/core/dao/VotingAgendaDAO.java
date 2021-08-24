@@ -1,7 +1,7 @@
 package com.cooperativismvoteservice.core.dao;
 
 import com.cooperativismvoteservice.core.mapper.VotingAgendaMapper;
-import com.cooperativismvoteservice.core.model.VotingAgenda;
+import com.cooperativismvoteservice.model.VotingAgenda;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;

@@ -1,6 +1,6 @@
 package com.cooperativismvoteservice.core.mapper;
 
-import com.cooperativismvoteservice.core.model.VotingAgenda;
+import com.cooperativismvoteservice.model.VotingAgenda;
 import org.jdbi.v3.core.mapper.RowMapper;
 import org.jdbi.v3.core.statement.StatementContext;
 
