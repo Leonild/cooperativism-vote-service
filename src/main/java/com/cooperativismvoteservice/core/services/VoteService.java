@@ -1,7 +1,7 @@
 package com.cooperativismvoteservice.core.services;
 
-import com.cooperativismvoteservice.model.Vote;
-import com.cooperativismvoteservice.model.VotingSession;
+import com.cooperativismvoteservice.api.Vote;
+import com.cooperativismvoteservice.api.VotingSession;
 import com.cooperativismvoteservice.core.repositoy.VoteRepository;
 import com.cooperativismvoteservice.core.repositoy.VotingSessionRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;

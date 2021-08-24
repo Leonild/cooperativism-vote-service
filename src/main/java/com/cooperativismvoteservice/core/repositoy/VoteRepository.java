@@ -1,7 +1,7 @@
 package com.cooperativismvoteservice.core.repositoy;
 
 import com.cooperativismvoteservice.core.dao.VoteDAO;
-import com.cooperativismvoteservice.model.Vote;
+import com.cooperativismvoteservice.api.Vote;
 import org.jdbi.v3.core.Jdbi;
 
 import java.util.List;
