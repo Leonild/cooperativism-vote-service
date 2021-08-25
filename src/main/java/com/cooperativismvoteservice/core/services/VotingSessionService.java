@@ -30,7 +30,19 @@ public class VotingSessionService {
         this.votingSessionRepository = votingSessionRepository;
     }
 
-    public VotingSession createVotingSession(String agendaId) {
+    public VotingSession openVotingSession(String agendaId) {
+        VotingAgendaService agendaService = new VotingAgendaService(target, client, objectMapper,
+                new VotingAgendaRepository(votingSessionRepository.getJdbi()));
+        VotingAgenda votingAgenda = agendaService.getAgenda(agendaId);
+        if(votingAgenda==null) return null;
+        VotingSession votingSession = new VotingSession(votingAgenda.getVotingAgendaId());
+        logger.info("AGENDA ID: " + votingAgenda.getVotingAgendaId());
+        Long sessionID = votingSessionRepository.insert(votingSession);
+        votingSession.setVotingSessionId(sessionID);
+        return votingSession;
+    }
+
+    public VotingSession openVotingSession(String agendaId, String time) {
         VotingAgendaService agendaService = new VotingAgendaService(target, client, objectMapper,
                 new VotingAgendaRepository(votingSessionRepository.getJdbi()));
         VotingAgenda votingAgenda = agendaService.getAgenda(agendaId);
