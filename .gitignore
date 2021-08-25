@@ -1,0 +1,9 @@
+.idea
+.git
+target/
+logs/
+postgres-data/
+**/*.iml
+**/*.ipr
+**/*.iws
+**/*.xml
