@@ -3,6 +3,7 @@ package com.cooperativismvoteservice.resources;
 import com.codahale.metrics.annotation.Timed;
 import com.cooperativismvoteservice.api.VotingSession;
 import com.cooperativismvoteservice.core.services.VotingSessionService;
+import com.cooperativismvoteservice.exceptions.AgendaException;
 import org.hibernate.validator.constraints.Length;
 
 import javax.ws.rs.GET;
@@ -24,25 +25,27 @@ public class VotingSessionResource {
     @GET
     @Path("/open/{agendaId}")
     @Timed
-    public Response openVotingSession(@Length(min = 1, max = 19, message = "Identificador de sessão inválido")
+    public Response openVotingSession(@Length(min = 1, max = 19, message = "Invalid session ID!")
                                  @PathParam("agendaId") String agendaId) {
-        VotingSession votingSession = votingSessionService.openVotingSession(agendaId);
-        if (votingSession == null) {
+        try {
+            VotingSession votingSession = votingSessionService.openVotingSession(agendaId);
+            return Response.ok(votingSession).build();
+        } catch (AgendaException e) {
             return Response.ok("Agenda not found!").build();
         }
-        return Response.ok(votingSession).build();
     }
 
     @GET
     @Path("/open/{agendaId}/{time}")
     @Timed
-    public Response openVotingSessionWithTime(@Length(min = 1, max = 19, message = "Identificador de sessão inválido")
+    public Response openVotingSessionWithTime(@Length(min = 1, max = 19, message = "Invalid session ID!")
                                       @PathParam("agendaId") String agendaId,
                                               @PathParam("time") String time) {
-        VotingSession votingSession = votingSessionService.openVotingSession(agendaId, time);
-        if (votingSession == null) {
+        try {
+            VotingSession votingSession = votingSessionService.openVotingSession(agendaId, time);
+            return Response.ok(votingSession).build();
+        } catch (AgendaException e) {
             return Response.ok("Agenda not found!").build();
         }
-        return Response.ok(votingSession).build();
     }
 }

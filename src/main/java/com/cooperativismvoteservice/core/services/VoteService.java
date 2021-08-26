@@ -5,6 +5,9 @@ import com.cooperativismvoteservice.api.Vote;
 import com.cooperativismvoteservice.api.VotingSession;
 import com.cooperativismvoteservice.core.dao.repositoy.VoteRepository;
 import com.cooperativismvoteservice.core.dao.repositoy.VotingSessionRepository;
+import com.cooperativismvoteservice.exceptions.CPFException;
+import com.cooperativismvoteservice.exceptions.SessionException;
+import com.cooperativismvoteservice.exceptions.VoteException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,35 +37,41 @@ public class VoteService {
         this.voteRepository = voteRepository;
     }
 
-    public Vote vote(String sessionId, String cpf, String choice)  {
+    public Vote vote(String sessionId, String cpf, String choice) throws VoteException {
+        checkVote(sessionId, cpf);
         VotingSessionRepository votingSessionRepository = new VotingSessionRepository(voteRepository.getJdbi());
         VotingSession votingSession = votingSessionRepository.findById(Long.valueOf(sessionId));
-        if(votingSession==null) return null;
         Vote vote = new Vote(votingSession.getVotingSessionId(), cpf, choice, true);
-        voteRepository.insert(vote);
+        vote.setVoteId(Long.valueOf(voteRepository.insert(vote)));
         return vote;
     }
 
-    public Boolean isSessionOpen(String sessionId){
+    public boolean isSessionOpen(String sessionId) throws SessionException {
         VotingSessionRepository votingSessionRepository = new VotingSessionRepository(voteRepository.getJdbi());
         VotingSession votingSession = votingSessionRepository.findById(Long.valueOf(sessionId));
         if(votingSession == null){
-            return null;
+            throw new SessionException("Session not found!");
         }
         return votingSession.isOpen();
+    }
+
+    public boolean checkVote(String sessionId, String cpf) throws VoteException {
+        Vote vote = voteRepository.findByCPF(Long.valueOf(sessionId), cpf);
+        if(vote == null) return false;
+        throw new VoteException("Vote already registered!");
     }
 
     /**
      * Integrating with cpf validation
      * @return CPFValidator object
      */
-    public CPFValidator verifyCPF(String cpf) {
+    public CPFValidator verifyCPF(String cpf) throws CPFException {
         Response response = client.target(target)
                 .path(cpf)
                 .request(MediaType.APPLICATION_JSON_TYPE)
                 .get();
         if (response.getStatusInfo().getFamily() != Response.Status.Family.SUCCESSFUL) {
-            return null;
+            throw new CPFException("Invalid CPF");
         }
 
         String body = response.readEntity(String.class);

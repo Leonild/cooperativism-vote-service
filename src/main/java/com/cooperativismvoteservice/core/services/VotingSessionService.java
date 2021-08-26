@@ -4,6 +4,7 @@ import com.cooperativismvoteservice.api.VotingAgenda;
 import com.cooperativismvoteservice.api.VotingSession;
 import com.cooperativismvoteservice.core.dao.repositoy.VotingAgendaRepository;
 import com.cooperativismvoteservice.core.dao.repositoy.VotingSessionRepository;
+import com.cooperativismvoteservice.exceptions.AgendaException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,11 +31,10 @@ public class VotingSessionService {
         this.votingSessionRepository = votingSessionRepository;
     }
 
-    public VotingSession openVotingSession(String agendaId) {
+    public VotingSession openVotingSession(String agendaId) throws AgendaException {
         VotingAgendaService agendaService = new VotingAgendaService(target, client, objectMapper,
                 new VotingAgendaRepository(votingSessionRepository.getJdbi()));
         VotingAgenda votingAgenda = agendaService.getAgenda(agendaId);
-        if(votingAgenda==null) return null;
         VotingSession votingSession = new VotingSession(votingAgenda.getVotingAgendaId());
         logger.info("AGENDA ID: " + votingAgenda.getVotingAgendaId());
         Long sessionID = votingSessionRepository.insert(votingSession);
@@ -42,12 +42,11 @@ public class VotingSessionService {
         return votingSession;
     }
 
-    public VotingSession openVotingSession(String agendaId, String time) {
+    public VotingSession openVotingSession(String agendaId, String time) throws AgendaException {
         VotingAgendaService agendaService = new VotingAgendaService(target, client, objectMapper,
                 new VotingAgendaRepository(votingSessionRepository.getJdbi()));
         VotingAgenda votingAgenda = agendaService.getAgenda(agendaId);
-        if(votingAgenda==null) return null;
-        VotingSession votingSession = new VotingSession(votingAgenda.getVotingAgendaId());
+        VotingSession votingSession = new VotingSession(votingAgenda.getVotingAgendaId(), Long.valueOf(time));
         logger.info("AGENDA ID: " + votingAgenda.getVotingAgendaId());
         Long sessionID = votingSessionRepository.insert(votingSession);
         votingSession.setVotingSessionId(sessionID);

@@ -3,6 +3,7 @@ package com.cooperativismvoteservice.resources;
 import com.codahale.metrics.annotation.Timed;
 import com.cooperativismvoteservice.api.VotingAgenda;
 import com.cooperativismvoteservice.core.services.VotingAgendaService;
+import com.cooperativismvoteservice.exceptions.AgendaException;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -35,10 +36,12 @@ public class VotingAgendaResource {
     @Path("/get-agenda/{id}")
     @Timed
     public Response getAgenda(@PathParam("id") String agendaID) {
-        VotingAgenda votingAgenda = votingAgendaService.getAgenda(agendaID);
-        if (votingAgenda == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        try {
+            VotingAgenda votingAgenda = votingAgendaService.getAgenda(agendaID);
+            return Response.ok(votingAgenda).build();
+        } catch (AgendaException e) {
+            return Response.ok("Agenda not found!").build();
         }
-        return Response.ok(votingAgenda).build();
+
     }
 }

@@ -18,6 +18,13 @@ Technical challenge: Rest API for a vote service
 3. To check that your application is running enter url `http://localhost:9090`
 
 ## Services
+- Host: `localhost:8080`
+
+/cooperativism-vote-service/vote/{sessionId}/{cpf}/{choice}
+/cooperativism-vote-service/voting-agenda/get-agenda/{id}
+/cooperativism-vote-service/voting-agenda/{description}
+/cooperativism-vote-service/voting-session/open/{agendaId}
+/cooperativism-vote-service/voting-session/open/{agendaId}/{time}
 
 **Observations:** the API `https://user-info.herokuapp.com/users/{cpf}` does not work fine, so some time it's necessary to repeat the vote request.
 

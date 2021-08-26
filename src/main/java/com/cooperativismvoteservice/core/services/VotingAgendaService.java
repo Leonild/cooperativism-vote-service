@@ -2,6 +2,7 @@ package com.cooperativismvoteservice.core.services;
 
 import com.cooperativismvoteservice.api.VotingAgenda;
 import com.cooperativismvoteservice.core.dao.repositoy.VotingAgendaRepository;
+import com.cooperativismvoteservice.exceptions.AgendaException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +37,9 @@ public class VotingAgendaService {
         return votingAgenda;
     }
 
-    public VotingAgenda getAgenda(String agendaId) {
+    public VotingAgenda getAgenda(String agendaId) throws AgendaException {
         VotingAgenda votingAgenda = votingAgendaRepository.findById(Long.valueOf(agendaId));
+        if(votingAgenda==null) throw new AgendaException("Agenda not found!");
         return votingAgenda;
     }
 }

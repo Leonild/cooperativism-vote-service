@@ -18,9 +18,15 @@ public class VoteRepository implements VoteDAO {
     }
 
     @Override
-    public Vote findById(int id) {
+    public Vote findById(Long id) {
         return jdbi.withExtension(VoteDAO.class, dao -> dao.findById(id));
     }
+
+    @Override
+    public Vote findByCPF(Long sessionId, String cpf) {
+        return jdbi.withExtension(VoteDAO.class, dao -> dao.findByCPF(sessionId, cpf));
+    }
+
 
     @Override
     public int deleteById(Long vote_id) {
