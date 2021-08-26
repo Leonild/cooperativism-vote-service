@@ -41,7 +41,7 @@ public class VoteService {
         checkVote(sessionId, cpf);
         VotingSessionRepository votingSessionRepository = new VotingSessionRepository(voteRepository.getJdbi());
         VotingSession votingSession = votingSessionRepository.findById(Long.valueOf(sessionId));
-        Vote vote = new Vote(votingSession.getVotingSessionId(), cpf, choice, true);
+        Vote vote = new Vote(votingSession.getVotingSessionId(), cpf, choice);
         vote.setVoteId(Long.valueOf(voteRepository.insert(vote)));
         return vote;
     }
@@ -66,20 +66,20 @@ public class VoteService {
      * @return CPFValidator object
      */
     public CPFValidator verifyCPF(String cpf) throws CPFException {
-        Response response = client.target(target)
-                .path(cpf)
-                .request(MediaType.APPLICATION_JSON_TYPE)
-                .get();
-        if (response.getStatusInfo().getFamily() != Response.Status.Family.SUCCESSFUL) {
-            throw new CPFException("Invalid CPF");
-        }
-
-        String body = response.readEntity(String.class);
         try{
+            Response response = client.target(target)
+                    .path(cpf)
+                    .request(MediaType.APPLICATION_JSON_TYPE)
+                    .get();
+            if (response.getStatusInfo().getFamily() != Response.Status.Family.SUCCESSFUL) {
+                throw new CPFException("Invalid CPF");
+            }
+
+            String body = response.readEntity(String.class);
             return objectMapper.readValue(body, CPFValidator.class);
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error("Erro to read herokuapp response");
-            throw new RuntimeException(e);
+            throw new CPFException("Error in the herokuapp response");
         }
     }
 }

@@ -21,14 +21,10 @@ public class Vote {
     @Column(name = "choice")
     private String choice;
 
-    @Column(name = "vote")
-    private Boolean vote;
-
-    public Vote(Long votingSession, String cpf, String choice, Boolean vote) {
+    public Vote(Long votingSession, String cpf, String choice) {
         this.votingSession = votingSession;
         this.cpf = cpf;
         this.choice = choice;
-        this.vote = vote;
     }
 
     public Vote() {
@@ -48,14 +44,6 @@ public class Vote {
 
     public void setVotingSession(Long votingSession) {
         this.votingSession = votingSession;
-    }
-
-    public Boolean getVote() {
-        return vote;
-    }
-
-    public void setVote(Boolean vote) {
-        this.vote = vote;
     }
 
     public String getCpf() {

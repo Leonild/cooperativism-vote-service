@@ -6,6 +6,7 @@ import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
 import org.jdbi.v3.sqlobject.customizer.BindBean;
 import org.jdbi.v3.sqlobject.customizer.BindMap;
+import org.jdbi.v3.sqlobject.statement.GetGeneratedKeys;
 import org.jdbi.v3.sqlobject.statement.SqlQuery;
 import org.jdbi.v3.sqlobject.statement.SqlUpdate;
 
@@ -29,6 +30,7 @@ public interface VoteDAO {
 //    @SqlUpdate("update VOTING_AGENDA set DESCRIPTION = :description where VOTING_SESSION_ID = :voting_session_id")
 //    int update(@BindBean VotingAgenda votingAgenda);
 
-    @SqlUpdate("insert into VOTE (VOTING_SESSION_ID, CPF, CHOICE, VOTE) values (:votingSession, :cpf, :choice, :vote)")
-    int insert(@BindBean Vote vote);
+    @SqlUpdate("insert into VOTE (VOTING_SESSION_ID, CPF, CHOICE) values (:votingSession, :cpf, :choice)")
+    @GetGeneratedKeys
+    Long insert(@BindBean Vote vote);
 }
