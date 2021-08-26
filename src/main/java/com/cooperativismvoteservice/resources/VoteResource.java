@@ -30,10 +30,9 @@ public class VoteResource {
         CPFValidator validator = voteService.verifyCPF(cpf);
         if(validator == null) return Response.ok("Invalid CPF").build();
         if(validator.getStatus().equals("UNABLE_TO_VOTE")) return Response.ok(validator).build();
+        if(voteService.isSessionOpen(sessionId) == null) return Response.ok("Session not found!").build();
+        if(!voteService.isSessionOpen(sessionId)) return Response.ok("This session is already close!").build();
         Vote vote = voteService.vote(sessionId, cpf, choice);
-        if (vote == null) {
-            return Response.ok("Session not found!").build();
-        }
         return Response.ok(vote).build();
     }
 }

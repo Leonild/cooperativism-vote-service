@@ -6,9 +6,10 @@ Technical challenge: Rest API for a vote service
 - docker-compose
 - Apache Maven 3.6.3
 - JDK 1.8
+- Internet connection to API integration
 
 ## Quick Start database
-- Go inside of directory and run this command `docker-compose up -d`
+- Go inside of directory and run this command `docker-compose up -d`, if you get a error, run in admin mode (sudo)
 
 ## How to start the Cooperativism Vote Service application
 
@@ -17,6 +18,8 @@ Technical challenge: Rest API for a vote service
 3. To check that your application is running enter url `http://localhost:9090`
 
 ## Services
+
+**Observations:** the API `https://user-info.herokuapp.com/users/{cpf}` does not work fine, so some time it's necessary to repeat the vote request.
 
 ## Architecture
 

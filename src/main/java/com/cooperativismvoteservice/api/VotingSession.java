@@ -23,21 +23,23 @@ public class VotingSession implements Comparable<VotingSession>{
     private Long votingAgendaID;
 
     @JsonProperty
-    private boolean open;
+    @Column(name = "start_time")
+    private Long startTime;
 
-    private LocalDateTime startTime;
-
+    @JsonProperty
+    @Column(name = "total_time")
     private Long totalTime;
 
     public VotingSession(Long votingAgendaID) {
         this.votingAgendaID = votingAgendaID;
-        this.startTime = LocalDateTime.now();
+        this.startTime = System.currentTimeMillis();
+        this.totalTime = 60L;
     }
 
     public VotingSession(Long votingAgendaID, Long totalTime) {
         this.votingAgendaID = votingAgendaID;
         this.totalTime = totalTime;
-        this.startTime = LocalDateTime.now();
+        this.startTime = System.currentTimeMillis();
     }
 
     public VotingSession() {
@@ -59,12 +61,28 @@ public class VotingSession implements Comparable<VotingSession>{
         this.votingAgendaID = votingAgendaID;
     }
 
-    public boolean getOpen() {
-        return open;
+    public Long getStartTime() {
+        return startTime;
     }
 
-    public void setOpen(boolean open) {
-        this.open = open;
+    public void setStartTime(Long startTime) {
+        this.startTime = startTime;
+    }
+
+    public Long getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(Long totalTime) {
+        this.totalTime = totalTime;
+    }
+
+    public boolean isOpen(){
+        Long checkTime = System.currentTimeMillis();
+        if (checkTime > (getStartTime() + (getTotalTime() * 1000))) {
+            return false;
+        }
+        return true;
     }
 
     @Override

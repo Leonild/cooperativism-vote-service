@@ -1,6 +1,6 @@
 package com.cooperativismvoteservice.core.dao;
 
-import com.cooperativismvoteservice.core.mapper.VotingSessionMapper;
+import com.cooperativismvoteservice.core.dao.mapper.VotingSessionMapper;
 import com.cooperativismvoteservice.api.VotingSession;
 import org.jdbi.v3.sqlobject.config.RegisterRowMapper;
 import org.jdbi.v3.sqlobject.customizer.Bind;
@@ -23,7 +23,7 @@ public interface VotingSessionDAO {
     @SqlUpdate("delete from VOTING_SESSION where VOTING_SESSION_ID = :voting_session_id")
     Long deleteById(@Bind("voting_session_id") Long voting_session_id);
 
-    @SqlUpdate("insert into VOTING_SESSION (VOTING_AGENDA_ID) values (:votingAgendaID)")
+    @SqlUpdate("insert into VOTING_SESSION (VOTING_AGENDA_ID, START_TIME, TOTAL_TIME) values (:votingAgendaID, :startTime, :totalTime)")
     @GetGeneratedKeys
     Long insert(@BindBean VotingSession votingSession);
 

@@ -1,4 +1,4 @@
-package com.cooperativismvoteservice.core.repositoy;
+package com.cooperativismvoteservice.core.dao.repositoy;
 
 
 import com.cooperativismvoteservice.core.dao.VotingAgendaDAO;

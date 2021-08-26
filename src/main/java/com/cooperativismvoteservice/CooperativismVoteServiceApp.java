@@ -1,9 +1,9 @@
 package com.cooperativismvoteservice;
 
 import com.cooperativismvoteservice.configuration.CooperativismVoteServiceConfig;
-import com.cooperativismvoteservice.core.repositoy.VoteRepository;
-import com.cooperativismvoteservice.core.repositoy.VotingAgendaRepository;
-import com.cooperativismvoteservice.core.repositoy.VotingSessionRepository;
+import com.cooperativismvoteservice.core.dao.repositoy.VoteRepository;
+import com.cooperativismvoteservice.core.dao.repositoy.VotingAgendaRepository;
+import com.cooperativismvoteservice.core.dao.repositoy.VotingSessionRepository;
 import com.cooperativismvoteservice.resources.VoteResource;
 import com.cooperativismvoteservice.resources.VotingAgendaResource;
 import com.cooperativismvoteservice.resources.VotingSessionResource;

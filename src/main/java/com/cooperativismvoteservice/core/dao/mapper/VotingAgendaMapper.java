@@ -1,4 +1,4 @@
-package com.cooperativismvoteservice.core.mapper;
+package com.cooperativismvoteservice.core.dao.mapper;
 
 import com.cooperativismvoteservice.api.VotingAgenda;
 import org.jdbi.v3.core.mapper.RowMapper;

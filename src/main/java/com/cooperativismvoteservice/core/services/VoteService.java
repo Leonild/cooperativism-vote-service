@@ -3,8 +3,8 @@ package com.cooperativismvoteservice.core.services;
 import com.cooperativismvoteservice.api.CPFValidator;
 import com.cooperativismvoteservice.api.Vote;
 import com.cooperativismvoteservice.api.VotingSession;
-import com.cooperativismvoteservice.core.repositoy.VoteRepository;
-import com.cooperativismvoteservice.core.repositoy.VotingSessionRepository;
+import com.cooperativismvoteservice.core.dao.repositoy.VoteRepository;
+import com.cooperativismvoteservice.core.dao.repositoy.VotingSessionRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +41,15 @@ public class VoteService {
         Vote vote = new Vote(votingSession.getVotingSessionId(), cpf, choice, true);
         voteRepository.insert(vote);
         return vote;
+    }
+
+    public Boolean isSessionOpen(String sessionId){
+        VotingSessionRepository votingSessionRepository = new VotingSessionRepository(voteRepository.getJdbi());
+        VotingSession votingSession = votingSessionRepository.findById(Long.valueOf(sessionId));
+        if(votingSession == null){
+            return null;
+        }
+        return votingSession.isOpen();
     }
 
     /**
