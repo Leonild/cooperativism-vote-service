@@ -9,7 +9,7 @@ Technical challenge: Rest API for a vote service
 - Internet connection to API integration
 
 ## Quick Start database
-- Go inside of directory and run this command `docker-compose up -d`, if you gat an error, run it in admin mode (sudo)
+- Go inside of directory and run this command `docker-compose up -d`, if you got an error, run it in admin mode (sudo)
 
 ## How to start the Cooperativism Vote Service application
 
@@ -18,7 +18,7 @@ Technical challenge: Rest API for a vote service
 3. To check that your application is running enter url `http://localhost:9090`
 
 ## Services
-- Host: `localhost:8080`
+- Host: `localhost:9090`
 
 |Service path | Description|
 |--------------|------------|
