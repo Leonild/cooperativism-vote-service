@@ -20,13 +20,19 @@ Technical challenge: Rest API for a vote service
 ## Services
 - Host: `localhost:8080`
 
-/cooperativism-vote-service/vote/{sessionId}/{cpf}/{choice}
-/cooperativism-vote-service/voting-agenda/get-agenda/{id}
-/cooperativism-vote-service/voting-agenda/{description}
-/cooperativism-vote-service/voting-session/open/{agendaId}
-/cooperativism-vote-service/voting-session/open/{agendaId}/{time}
+|Service path | Description|
+|--------------|------------|
+| /cooperativism-vote-service/vote/{sessionId}/{cpf}/{choice} | Register a vote in a session |
+| /cooperativism-vote-service/voting-agenda/get-agenda/{id} | Query a specific agenda |
+| /cooperativism-vote-service/voting-agenda/{description} | Create an agenda with description |
+| /cooperativism-vote-service/voting-session/open/{agendaId} | Open a voting session on a specific agenda with default time (60s)|
+| /cooperativism-vote-service/voting-session/open/{agendaId}/{time} | Open a voting session on a specific agenda with specific time in seconds |
 
-**Observations:** the API `https://user-info.herokuapp.com/users/{cpf}` does not work fine, so some time it's necessary to repeat the vote request.
+**Observations:** 
+- the API `https://user-info.herokuapp.com/users/{cpf}` does not work fine, so some time it's necessary to repeat the vote request.
+- At the specification, it's unclear if I can open only one session per agenda, so I don't treat this. However, 
+opening many sessions with the same agenda does not make sense since we can vote only once per agenda. Actually, for this
+reason I do restrict the vote for session and not agenda.
 
 ## Architecture
 
