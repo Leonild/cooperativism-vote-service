@@ -43,9 +43,9 @@ Abstractly, the figure below exemplifies the connection and interaction between 
 
 ![alt text](https://raw.githubusercontent.com/Leonild/cooperativism-vote-service/master/images/rest-api.png)
 
-The data base relationship is very simple, wit three tables (1) to store the agenda, (2) session, and (3) vote. In these
-relationship the session table has the agenda id such foreign key and vote table has the session id such foreign key.
-In the follow image I drew an entity–relationship diagram.
+The database relationship is simple, with three tables to store the (1) agenda, (2) session, and (3) vote. In this 
+relationship, the session table has the agenda id such foreign key, and the voting table has the session-id such foreign key. 
+In the following image, I drew an entity-relationship diagram.
 
 ![alt text](https://raw.githubusercontent.com/Leonild/cooperativism-vote-service/master/images/ER-diagram.png)
  
