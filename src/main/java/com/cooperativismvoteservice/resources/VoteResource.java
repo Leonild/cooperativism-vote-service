@@ -3,6 +3,7 @@ package com.cooperativismvoteservice.resources;
 import com.codahale.metrics.annotation.Timed;
 import com.cooperativismvoteservice.api.CPFValidator;
 import com.cooperativismvoteservice.api.Vote;
+import com.cooperativismvoteservice.api.VoteResult;
 import com.cooperativismvoteservice.core.services.VoteService;
 import com.cooperativismvoteservice.exceptions.CPFException;
 import com.cooperativismvoteservice.exceptions.SessionException;
@@ -44,6 +45,19 @@ public class VoteResource {
             return Response.ok("Session not found!").build();
         } catch (VoteException e) {
             return Response.ok("You have already voted in this session!").build();
+        }
+    }
+
+    @GET
+    @Path("/result/{sessionId}")
+    @Timed
+    public Response getVoteResult(@PathParam("sessionId") String sessionId) {
+        try {
+            if (voteService.isSessionOpen(sessionId)) return Response.ok("This session is still open!").build();
+            VoteResult voteResult = voteService.voteResult(sessionId);
+            return Response.ok(voteResult).build();
+        } catch (SessionException e){
+            return Response.ok("Session not found!").build();
         }
     }
 }

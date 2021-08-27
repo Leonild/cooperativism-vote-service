@@ -2,6 +2,7 @@ package com.cooperativismvoteservice.core.services;
 
 import com.cooperativismvoteservice.api.CPFValidator;
 import com.cooperativismvoteservice.api.Vote;
+import com.cooperativismvoteservice.api.VoteResult;
 import com.cooperativismvoteservice.api.VotingSession;
 import com.cooperativismvoteservice.core.dao.repositoy.VoteRepository;
 import com.cooperativismvoteservice.core.dao.repositoy.VotingSessionRepository;
@@ -16,6 +17,7 @@ import javax.ws.rs.client.Client;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Leonildo Azevedo
@@ -53,6 +55,28 @@ public class VoteService {
             throw new SessionException("Session not found!");
         }
         return votingSession.isOpen();
+    }
+
+    public VoteResult voteResult(String sessionId) throws SessionException {
+        if (isSessionOpen(sessionId)){
+            return null;
+        }
+        List<Vote> votes = voteRepository.getAll(Long.valueOf(sessionId));
+        int totalYes = 0;
+        int totalNo = 0;
+        int totalNullVotes = 0;
+        for (Vote vote: votes) {
+            if(vote.getChoice().equals("Sim") || vote.getChoice().equals("SIM") || vote.getChoice().equals("sim")){
+                totalYes++;
+            } else {
+                if(vote.getChoice().equals("Não") || vote.getChoice().equals("NÃO") || vote.getChoice().equals("não")){
+                    totalNo++;
+                } else {
+                    totalNullVotes++;
+                }
+            }
+        }
+        return new VoteResult(Long.valueOf(sessionId), totalYes, totalNo, totalNullVotes);
     }
 
     public boolean checkVote(String sessionId, String cpf) throws VoteException {

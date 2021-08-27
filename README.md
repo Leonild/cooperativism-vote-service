@@ -22,11 +22,12 @@ Technical challenge: Rest API for a vote service
 
 |Service path | Description|
 |--------------|------------|
-| /cooperativism-vote-service/vote/{sessionId}/{cpf}/{choice} | Register a vote in a session |
+| /cooperativism-vote-service/voting-agenda/{description} | Create an agenda with a description |
 | /cooperativism-vote-service/voting-agenda/get-agenda/{id} | Query a specific agenda |
-| /cooperativism-vote-service/voting-agenda/{description} | Create an agenda with description |
 | /cooperativism-vote-service/voting-session/open/{agendaId} | Open a voting session on a specific agenda with default time (60s)|
 | /cooperativism-vote-service/voting-session/open/{agendaId}/{time} | Open a voting session on a specific agenda with specific time in seconds |
+| /cooperativism-vote-service/vote/{sessionId}/{cpf}/{choice} | Register a vote in a session |
+| /cooperativism-vote-service/vote/result/{sessionId} | Get the voting result in a specific session |
 
 **Observations:** 
 - the API `https://user-info.herokuapp.com/users/{cpf}` does not work fine, so some time it's necessary to repeat the vote request.

@@ -15,7 +15,10 @@ import java.util.List;
 @RegisterRowMapper(VoteMapper.class)
 public interface VoteDAO {
 
-    @SqlQuery("select * from VOTE")
+    @SqlQuery("select * from VOTE where VOTING_SESSION_ID = :vote_session_id")
+    List<Vote> getAll(@Bind("vote_session_id") Long sessionId);
+
+    @SqlQuery("select * from VOTE ")
     List<Vote> getAll();
 
     @SqlQuery("select * from VOTE where VOTE_ID = :vote_id")

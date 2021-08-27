@@ -39,6 +39,11 @@ public class VoteRepository implements VoteDAO {
     }
 
     @Override
+    public List<Vote> getAll(Long sessionId) {
+        return jdbi.withExtension(VoteDAO.class, dao -> dao.getAll(sessionId));
+    }
+
+    @Override
     public List<Vote> getAll() {
         return jdbi.withExtension(VoteDAO.class, VoteDAO::getAll);
     }
