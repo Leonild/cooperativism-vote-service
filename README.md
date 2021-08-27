@@ -9,7 +9,7 @@ Technical challenge: Rest API for a vote service
 - Internet connection to API integration
 
 ## Quick Start database
-- Go inside of directory and run this command `docker-compose up -d`, if you get a error, run in admin mode (sudo)
+- Go inside of directory and run this command `docker-compose up -d`, if you gat an error, run it in admin mode (sudo)
 
 ## How to start the Cooperativism Vote Service application
 
@@ -39,6 +39,8 @@ reason I do restrict the vote for session and not agenda.
 The application follows a 2-layer implementation, where the first is from the API, where I developed the voting service, and I treated requested in the challenge were carried out. The second layer refers to the data layer composed of a docker running a Postgres server.
 
 Abstractly, the figure below exemplifies the connection and interaction between the layers:
+
+![alt text](https://raw.githubusercontent.com/Leonild/cooperativism-vote-service/master/images/rest-api.png)
 
 ## Technologies
 - <a href="https://www.dropwizard.io/en/latest/">Dropwizard</a> - Java framework for developing RESTful API.
