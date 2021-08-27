@@ -36,12 +36,20 @@ reason I do restrict the vote for session and not agenda.
 
 ## Architecture
 
-The application follows a 2-layer implementation, where the first is from the API, where I developed the voting service, and I treated requested in the challenge were carried out. The second layer refers to the data layer composed of a docker running a Postgres server.
+The application follows a 2-layer implementation, where the first is from the API, where I developed the voting service, 
+and I treated requested in the challenge were carried out. The second layer refers to the data layer composed of a docker running a Postgres server.
 
 Abstractly, the figure below exemplifies the connection and interaction between the layers:
 
 ![alt text](https://raw.githubusercontent.com/Leonild/cooperativism-vote-service/master/images/rest-api.png)
 
+The data base relationship is very simple, wit three tables (1) to store the agenda, (2) session, and (3) vote. In these
+relationship the session table has the agenda id such foreign key and vote table has the session id such foreign key.
+In the follow image I drew an entity–relationship diagram.
+
+![alt text](https://raw.githubusercontent.com/Leonild/cooperativism-vote-service/master/images/ER-diagram.png)
+ 
+ 
 ## Technologies
 - <a href="https://www.dropwizard.io/en/latest/">Dropwizard</a> - Java framework for developing RESTful API.
 - <a href="https://jdbi.org/">JDBI3</a> - a convenience library built on top of JDBC.
