@@ -50,6 +50,10 @@ In the following image, I drew an entity-relationship diagram.
 
 ![alt text](https://raw.githubusercontent.com/Leonild/cooperativism-vote-service/master/images/ER-diagram.png)
  
+## Tests
+
+I've created some automatic tests. However, I don't test the direct access to the herokuapp API due to its instability. 
+Sometimes the herokuapp API returns the expected response but some time no. 
  
 ## Technologies
 - <a href="https://www.dropwizard.io/en/latest/">Dropwizard</a> - Java framework for developing RESTful API.
